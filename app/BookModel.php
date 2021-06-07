@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookModel extends Model  {
 
- protected $table = 'tblbooks';
+    protected $table = 'tblbooks';
 
- protected $fillable = [ 'bookname', 'yearpublish' ];
+    protected $fillable = [ 'bookname', 'yearpublish', 'authorid' ];
 
- protected $primaryKey = 'id';
+    public $timestamps = false;
+    protected $primaryKey = 'id';
 
 }
+
+?>

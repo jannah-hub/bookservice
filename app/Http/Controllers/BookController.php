@@ -43,8 +43,10 @@ class BookController extends Controller
     {
         $rules = [
 
+            'id' => 'required|numeric|min:1|not_in:0',
             'bookname' => 'required|max:20',
             'yearpublish' => 'required|numeric|min:1|not_in:0',
+            'authorid' => 'required|numeric|min:1|not_in:0', //added
             //'gender' => 'required|in:Male,Female',
 
         ];
@@ -85,8 +87,10 @@ class BookController extends Controller
 
         $rules = [
 
+            'id' => 'numeric|min:1|not_in:0',
             'bookname' => 'max:20',
             'yearpublish' => 'numeric|min:1|not_in:0',
+            'authorid' => 'numeric|min:1|not_in:0',
             //'gender' => 'in:Male,Female',
 
         ];
@@ -95,7 +99,20 @@ class BookController extends Controller
 
         $books = BookModel::findOrFail($id);
 
-        $books->fill($request->all());
+        if ($books){
+
+            $books->fill($request->all());
+
+            // if no changes happen
+            if ($books->isClean()) {
+                return $this->errorResponse('At least one value must change', 
+                Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+            $books->save();
+            return $this->successResponse($books);
+        }
+
+/*$books->fill($request->all());
         
         $books->save();
         if($books){
@@ -105,7 +122,7 @@ class BookController extends Controller
         {
             return $this->errorResponse('Book ID Does Not Exist', Response::HTTP_NOT_FOUND);
 
-        }
+        }*/
     }
 
     public function delete($id)
