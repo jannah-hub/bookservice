@@ -43,11 +43,10 @@ class BookController extends Controller
     {
         $rules = [
 
-            'id' => 'required|numeric|min:1|not_in:0',
+            //'id' => 'required|numeric|min:1|not_in:0',
             'bookname' => 'required|max:20',
             'yearpublish' => 'required|numeric|min:1|not_in:0',
             'authorid' => 'required|numeric|min:1|not_in:0', //added
-            //'gender' => 'required|in:Male,Female',
 
         ];
 
