@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
-use App\BookAuthor;
+
 use App\BookModel;
 use App\Model;
 use DB;
@@ -27,8 +27,7 @@ class BookController extends Controller
     {
         $books =  DB::connection('mysql')
         ->select("Select * from tblbooks");
-        $authors = DB::connection('mysql2')
-        ->select("Select * from tblauthors");
+
 
         return $this->successResponse($books);
     }
