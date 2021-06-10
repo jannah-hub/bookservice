@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use App\BookAuthor;
 use App\BookModel;
 use App\Model;
 use DB;
@@ -26,6 +27,8 @@ class BookController extends Controller
     {
         $books =  DB::connection('mysql')
         ->select("Select * from tblbooks");
+        $authors = DB::connection('mysql2')
+        ->select("Select * from tblauthors");
 
         return $this->successResponse($books);
     }
@@ -46,7 +49,7 @@ class BookController extends Controller
             
             'bookname' => 'required|max:20',
             'yearpublish' => 'required|numeric|min:1|not_in:0',
-            'authorid' => 'required|numeric|min:1|not_in:0', //added
+            'authorid' => 'required|numeric|min:1|not_in:0',
 
         ];
 
@@ -110,8 +113,8 @@ class BookController extends Controller
             $books->save();
             return $this->successResponse($books);
         }
-
-/*$books->fill($request->all());
+//old code**********************************************************************************
+/*$books->fill($request->all()); 
         
         $books->save();
         if($books){
